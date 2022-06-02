@@ -176,6 +176,7 @@ impl Store {
       .app_dir()
       .expect("failed to resolve app dir");
     let store_path = app_dir.join(&self.path);
+    println!("Self path {:?} -> Store path {:?}", &self.path, store_path);
 
     let bytes = read(&store_path)?;
 
