@@ -193,9 +193,14 @@ impl Store {
       .expect("failed to resolve app dir");
     let store_path = app_dir.join(&self.path);
 
+    println!("Attempting to save data to disk");
+    println!("Will save to -> {:?}", store_path);
+    println!("Store path parent {:?}", store_path.parent());
     create_dir_all(store_path.parent().expect("invalid store path"))?;
 
+    println!("Current in cache {:?}", &self.cache);
     let bytes = (self.serialize)(&self.cache).map_err(Error::Serialize)?;
+    println!("Transformed into bytes {:?}", bytes);
     let mut f = File::create(&store_path)?;
     f.write_all(&bytes)?;
 
